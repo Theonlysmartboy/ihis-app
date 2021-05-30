@@ -26,6 +26,12 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="contact" class="form-label">Contact Person</label>
+                        <select name="contact" id="contact" class="form-control">
+                            <?php echo $user_dropdown; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="descr" class="form-label">Description</label>
                         <input type="text" name="descr" id="descr" class="form-control"/>
                     </div>

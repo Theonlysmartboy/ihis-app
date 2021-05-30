@@ -16,6 +16,7 @@ class CreateHealthFacilitiesTable extends Migration
         Schema::create('health_facilities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('zone_id')->references('id')->on('zones')->onDelete('cascade')->onUpdate('cascade');
             $table->text('description')->nullable();
             $table->timestamps();

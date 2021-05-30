@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use App\Models\HealthFacility;
@@ -42,7 +43,12 @@ class HealthFacilityController extends Controller
             foreach($zones as $zone){
                 $zone_dropdown .= "<option class='bg-ready' value='".$zone->id."'>". $zone->name."</option>";
             }
-        return view('master.facilities.new',compact('zone_dropdown'));
+            $user_dropdown= "<option selected>Select Contact Person</option>";
+            $users= User::get();
+            foreach($users as $user){
+                $user_dropdown .= "<option class='bg-ready' value='".$user->id."'>". $user->name."</option>";
+            }
+        return view('master.facilities.new',compact('zone_dropdown', 'user_dropdown'));
     }
 
     /**
@@ -56,6 +62,7 @@ class HealthFacilityController extends Controller
         $facility = new HealthFacility();
         $facility->name = $request->name;
         $facility->zone_id = $request->zone;
+        $facility->user_id = $request->contact;
         $facility->description = $request->descr;
         $facility->save();
         return redirect()->route('facilities');

@@ -28,7 +28,8 @@ class HomeController extends Controller
             return redirect()->route('userhome');
         }
         if ($request->user()->hasRole('admin')){
-            $healthFacility = HealthFacility::where(['admin'=>$request->user()->id]);
+            $healthFacility = HealthFacility::where(['user_id'=>$request->user()->id])->first();
+            dd($healthFacility);
             return redirect()->route('userhome',$healthFacility->name);
         }
         if ($request->user()->hasRole('super_admin')){
