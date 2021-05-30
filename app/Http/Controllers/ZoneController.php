@@ -14,7 +14,8 @@ class ZoneController extends Controller
      */
     public function index()
     {
-        //
+        $zones = Zone::get();
+        return view('master.zone',compact('zones'));
     }
 
     /**

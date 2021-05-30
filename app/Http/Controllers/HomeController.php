@@ -25,14 +25,14 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         if ($request->user()->hasRole('user')) {
-            return redirect('/');
+            return redirect()->route('userhome');
         }
         if ($request->user()->hasRole('admin')){
             $healthFacility = HealthFacility::where(['admin'=>$request->user()->id]);
-            return redirect('/admin/'.$healthFacility->name);
+            return redirect()->route('userhome',$healthFacility->name);
         }
-        if ($request->user()->hasRole('superadmin')){
-            return redirect('/master/dashboard');
+        if ($request->user()->hasRole('super_admin')){
+            return redirect()->route('masterhome');
         }
     }
 }
