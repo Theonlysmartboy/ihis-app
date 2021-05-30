@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -43,5 +44,25 @@ class User extends Authenticatable
     public function roles() 
     {
         return $this->belongsToMany(Role::class);
+    }
+    public function checkRoles($roles) 
+    {
+        if ( ! is_array($roles)) {
+            $roles = [$roles];    
+        }
+
+        if ( ! $this->hasAnyRole($roles)) {
+            Auth::logout();
+            abort(404);
+        }
+    }
+    public function hasAnyRole($roles): bool
+    {
+        return (bool) $this->roles()->whereIn('name', $roles)->first();
+    }
+
+    public function hasRole($role): bool
+    {
+        return (bool) $this->roles()->where('name', $role)->first();
     }
 }
