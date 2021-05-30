@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HealthFacilityController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('auth.login');
+});
+Route::group(['prefix' =>'admin'], function () {
+    Route::get('/{facility}', [HealthFacilityController::class, 'index'])->name('facility.dashboard');
+    
+});
+
+Route::prefix('master')->group(function () {
+    Route::get('/{user}', [MasterController::class, 'index'])->name('facility.dashboard');
+    
 });
 
 Auth::routes();

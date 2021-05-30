@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\HealthFacility;
 
 class HomeController extends Controller
 {
@@ -21,8 +22,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        if ($request->user()->hasRole('user')) {
+            return redirect('/');
+        }
+        if ($request->user()->hasRole('admin')){
+            $healthFacility = HealthFacility::where(['admin'=>$request->user()->id]);
+            return redirect('/admin/'.$healthFacility->name);
+        }
+        if ($request->user()->hasRole('superadmin')){
+            return redirect('/master/dashboard');
+        }
     }
 }
