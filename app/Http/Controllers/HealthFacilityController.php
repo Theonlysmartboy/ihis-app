@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HealthFacility;
+use App\Models\Zone;
 use Illuminate\Http\Request;
+use App\Models\HealthFacility;
 
 class HealthFacilityController extends Controller
 {
@@ -14,7 +15,19 @@ class HealthFacilityController extends Controller
      */
     public function index()
     {
-        //
+        $facilities = HealthFacility::get();
+        $facility_design = "";
+        foreach ($facilities as $facility ){
+            $zone = Zone::where(['id'=>$facility->zone_id])->first();
+            $facility_design .= " <tr>
+            <td>$facility->id</td>
+            <td>$facility->name</td>
+            <td>$zone->name</td>
+            <td></td>
+            <td>$facility->description</td>
+        </tr>";
+        }
+        return view('master.facilities.index',compact('facility_design'));
     }
 
     /**
@@ -24,7 +37,12 @@ class HealthFacilityController extends Controller
      */
     public function create()
     {
-        //
+        $zone_dropdown= "<option selected>Select Zone</option>";
+            $zones= Zone::get();
+            foreach($zones as $zone){
+                $zone_dropdown .= "<option class='bg-ready' value='".$zone->id."'>". $zone->name."</option>";
+            }
+        return view('master.facilities.new',compact('zone_dropdown'));
     }
 
     /**
@@ -35,7 +53,12 @@ class HealthFacilityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $facility = new HealthFacility();
+        $facility->name = $request->name;
+        $facility->zone_id = $request->zone;
+        $facility->description = $request->descr;
+        $facility->save();
+        return redirect()->route('facilities');
     }
 
     /**

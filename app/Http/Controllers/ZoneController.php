@@ -25,7 +25,7 @@ class ZoneController extends Controller
      */
     public function create()
     {
-        //
+        return view('master.create_zone');
     }
 
     /**
@@ -36,7 +36,11 @@ class ZoneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $zone = new Zone();
+        $zone->name = $request->name;
+        $zone->description = $request->descr;
+        $zone->save();
+        return redirect()->route('zones');
     }
 
     /**

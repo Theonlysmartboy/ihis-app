@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Zones') }}
-                    <a href="{{ route('zone.add') }}" class="btn btn-md btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    </a>
+                <div class="card-header">{{ __('Health Facilities') }}
+                    <a href="{{ route('facility.add') }}" class="btn btn-md btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    New </a>
                 </div>
                 <div class="card-body">
                     @if (session('status'))
@@ -19,17 +19,13 @@
                         <thead>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Zone</th>
+                            <th>Level</th>
                             <th>Description</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
-                            @foreach ($zones as $zone )
-                            <tr>
-                                <td>{{ $zone->id }}</td>
-                                <td>{{ $zone->name }}</td>
-                                <td>{{ $zone->description }}</td>
-                            </tr>
-                            @endforeach
+                            <?php echo $facility_design;?>
                         </tbody>
                     </table>
                 </div>

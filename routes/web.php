@@ -31,7 +31,8 @@ Route::prefix('master')->group(function () {
     Route::get('/', [MasterController::class, 'index'])->name('master.dashboard');
     Route::get('/admin', [AdminController::class, 'index'])->name('admins');
     Route::get('/facility', [HealthFacilityController::class, 'index'])->name('facilities');
-    Route::get('/zone', [ZoneController::class, 'index'])->name('zones');
+    Route::get('/facility/add', [HealthFacilityController::class, 'create'])->name('facility.add');
+    Route::post('/facility/add', [HealthFacilityController::class, 'store']);
     Route::get('/zone', [ZoneController::class, 'index'])->name('zones');
     Route::get('/zone/add', [ZoneController::class,'create'])->name('zone.add');
     Route::post('/zone/add', [ZoneController::class,'store']);
