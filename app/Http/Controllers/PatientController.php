@@ -15,11 +15,25 @@ class PatientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index()
+    {
+        $facility = HealthFacility::where(['user_id'=>Auth::user()->id])->first();
+        $facility_name = $facility->name;
+        $patients = Patient::where(['facility_id'=>$facility->id])->get();
+        return view('patients.index',compact('facility_name','patients'));
+    }
+    /**
+     * Show the search form to enter required serach aparameters
+     */
     public function showSearch(){
         $facility = HealthFacility::where(['user_id'=>Auth::user()->id])->first();
         $facility_name = $facility->name;
         return view('patients.search',compact('facility_name'));
     }
+
+    /**
+     * Run the search and show the results in a preformatted manner
+     */
     public function search(Request $request){
         $facility = HealthFacility::where(['user_id'=>Auth::user()->id])->first();
         $facility_name = $facility->name;
@@ -36,17 +50,9 @@ class PatientController extends Controller
             $result_design .="<td>$facility->name</td>
             <td>$diag->diagnosis</td>
             <td>$diag->prescription</td>
-
             </tr>";
         }
         return view('patients.result',compact('facility_name','result_design','huduma_no'));
-    }
-    public function index()
-    {
-        $facility = HealthFacility::where(['user_id'=>Auth::user()->id])->first();
-        $facility_name = $facility->name;
-        $patients = Patient::where(['facility_id'=>$facility->id])->get();
-        return view('patients.index',compact('facility_name','patients'));
     }
 
     /**
@@ -71,17 +77,32 @@ class PatientController extends Controller
     {
         $facility = HealthFacility::where(['user_id'=>Auth::user()->id])->first();
         $facility_name = $facility->name;
-        $patient = new Patient();
+        //check if patient exists
+        $patient_exists = Patient::where(['huduma_no'=>$request->id])->first();
+        if($patient_exists === null){
+            //patient does not exist register new
+            $patient = new Patient();
         $patient->facility_id = $facility->id;
         $patient->huduma_no = $request->id;
         $patient->registrar = Auth::user()->id;
         $patient->save();
+        //add dianostic data
         $diagnosis = new Diagnosis();
         $diagnosis->patient_id = $patient->id;
         $diagnosis->facility_id = $facility->id;
         $diagnosis->diagnosis = $request->diag;
         $diagnosis->prescription = $request->prescr;
         $diagnosis->save();
+        }
+        else{
+            //patient exists simply add diagnostic data
+            $diagnosis = new Diagnosis();
+            $diagnosis->patient_id = $patient_exists->id;
+            $diagnosis->facility_id = $facility->id;
+            $diagnosis->diagnosis = $request->diag;
+            $diagnosis->prescription = $request->prescr;
+            $diagnosis->save();
+        }
         return redirect()->route('patients',$facility_name);
 
     }
