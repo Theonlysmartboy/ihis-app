@@ -23,7 +23,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::group(['prefix' =>'admin'], function () {
-    Route::get('/{facility}', [HealthFacilityController::class, 'index'])->name('facility.dashboard');
+    Route::get('/{facility}', [HealthFacilityController::class, 'dashboard'])->name('facility.dashboard');
     
 });
 

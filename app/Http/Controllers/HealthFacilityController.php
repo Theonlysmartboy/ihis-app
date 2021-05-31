@@ -10,6 +10,13 @@ use App\Models\HealthFacility;
 class HealthFacilityController extends Controller
 {
     /**
+     * Show the dashboard
+     * for this particular hotel
+     */
+    public function dashboard(){
+        return view('facilities.dashboard');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -28,7 +35,7 @@ class HealthFacilityController extends Controller
             <td>$facility->description</td>
         </tr>";
         }
-        return view('master.facilities.index',compact('facility_design'));
+        return view('facilities.index',compact('facility_design'));
     }
 
     /**
@@ -48,7 +55,7 @@ class HealthFacilityController extends Controller
             foreach($users as $user){
                 $user_dropdown .= "<option class='bg-ready' value='".$user->id."'>". $user->name."</option>";
             }
-        return view('master.facilities.new',compact('zone_dropdown', 'user_dropdown'));
+        return view('facilities.new',compact('zone_dropdown', 'user_dropdown'));
     }
 
     /**
