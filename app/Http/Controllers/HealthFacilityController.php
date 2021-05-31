@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use App\Models\HealthFacility;
+use Illuminate\Support\Facades\Auth;
 
 class HealthFacilityController extends Controller
 {
@@ -14,7 +15,9 @@ class HealthFacilityController extends Controller
      * for this particular hotel
      */
     public function dashboard(){
-        return view('facilities.dashboard');
+        $facility = HealthFacility::where(['user_id'=>Auth::user()->id])->first();
+        $facility_name = $facility->name;
+        return view('facilities.dashboard',compact('facility_name'));
     }
     /**
      * Display a listing of the resource.

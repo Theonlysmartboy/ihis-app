@@ -14,37 +14,37 @@
                     @endif
                     <div class="row">
                         <div class="col-md-4">
-                            <a href="{{ route('zones') }}">
+                            <a href="{{ route('patients',$facility_name) }}">
                                 <div class="card">
                                     <div class="card-body bg-warning">
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </div>
                                     <div class="card-footer">
-                                        Zones
+                                        Patient List
                                     </div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ route('facilities') }}">
+                            <a href="{{ route('patient.search',$facility_name) }}">
                                 <div class="card">
                                     <div class="card-body bg-primary">
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </div>
                                     <div class="card-footer">
-                                        Health Facilities
+                                        Patient Search
                                     </div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ route('admins') }}">
+                            <a href="">
                                 <div class="card">
                                     <div class="card-body bg-success">
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </div>
                                     <div class="card-footer">
-                                        Users
+                                        
                                     </div>
                                 </div>
                             </a>
