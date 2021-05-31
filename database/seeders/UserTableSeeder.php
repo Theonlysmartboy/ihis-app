@@ -34,7 +34,6 @@ class UserTableSeeder extends Seeder
             $admin->password = bcrypt('Admin1234');
             $admin->save();
             $admin->roles()->attach(Role::where('name', 'admin')->first());
-
             $admin = new User;
             $admin->name = 'Dr. Bonyo';
             $admin->email = 'bonyo@test.com';
@@ -47,6 +46,6 @@ class UserTableSeeder extends Seeder
             $super_admin->email = 'super@test.com';
             $super_admin->password = bcrypt('Master1234');
             $super_admin->save();
-            $super_admin->roles()->attach(Role::where('name', 'Super admin')->first());
+            $super_admin->roles()->attach(Role::where('name', 'super_admin')->first());
         }  
     }

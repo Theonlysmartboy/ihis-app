@@ -32,7 +32,7 @@ class HomeController extends Controller
             return redirect()->route('facility.dashboard',$healthFacility->name);
         }
         if ($request->user()->hasRole('super_admin')){
-            return redirect()->route('masterhome');
+            return redirect()->route('master.dashboard');
         }
     }
 }
