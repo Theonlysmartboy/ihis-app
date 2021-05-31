@@ -15,7 +15,9 @@ class CreatePatientsTable extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('facility_id')->references('id')->on('health_facilities')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('huduma_no')->nullable()->default('text');
+            $table->foreignId('registrar')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
