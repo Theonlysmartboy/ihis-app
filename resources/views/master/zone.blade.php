@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Zones') }}
                     <a href="{{ route('zone.add') }}" class="btn btn-md btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    </a>
+                    Add new</a>
                 </div>
                 <div class="card-body">
                     @if (session('status'))

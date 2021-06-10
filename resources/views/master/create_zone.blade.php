@@ -17,11 +17,11 @@
                         @csrf
                     <div class="form-group">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" name="name" id="name" required class="form-controll"/>
+                        <input type="text" name="name" id="name" required class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label for="descr" class="form-label">Description</label>
-                        <input type="text" name="descr" id="descr" class="form-controll"/>
+                        <input type="text" name="descr" id="descr" class="form-control"/>
                     </div>
                     <input type="submit" value="Save" class="btn btn-success">
                     </form>
