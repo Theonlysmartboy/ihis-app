@@ -4,6 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <a href="{{ route('facility.dashboard',$facility_name) }}" class="btn btn-success btn-xs">Back</a>
+            <a href="{{ route('patient.search',$facility_name) }}" class="btn btn-success btn-xs">Search</a>
+            <a href="{{ route('patient.add',$facility_name) }}" class="btn btn-danger btn-xs">Diagnose</a>  
             <div class="card">
                 <div class="card-header">{{ __($huduma_no) }}
                 </div>

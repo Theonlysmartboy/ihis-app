@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <a href="{{ route('master.dashboard') }}" class="btn btn-success btn-xs">Back</a>
             <div class="card">
                 <div class="card-header">{{ __('Health Facilities') }}
                     <a href="{{ route('facility.add') }}" class="btn btn-md btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>

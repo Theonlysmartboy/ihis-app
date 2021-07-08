@@ -36,6 +36,10 @@ class HealthFacilityController extends Controller
             <td>$zone->name</td>
             <td></td>
             <td>$facility->description</td>
+            <td>
+                <button class='btn btn-warning btn-xs'>Edit</button>
+                <button class='btn btn-danger btn-xs'>Delete</button>
+            </td>
         </tr>";
         }
         return view('facilities.index',compact('facility_design'));
