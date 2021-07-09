@@ -34,7 +34,7 @@ class HealthFacilityController extends Controller
             <td>$facility->id</td>
             <td>$facility->name</td>
             <td>$zone->name</td>
-            <td></td>
+            <td>$facility->level</td>
             <td>$facility->description</td>
             <td>
                 <button class='btn btn-warning btn-xs'>Edit</button>
@@ -43,6 +43,27 @@ class HealthFacilityController extends Controller
         </tr>";
         }
         return view('facilities.index',compact('facility_design'));
+    }
+
+    public function listFacility(){
+        $facilities = HealthFacility::get();
+        $facility_design = "<div class='row'>";
+        foreach ($facilities as $facility ){
+            $zone = Zone::where(['id'=>$facility->zone_id])->first();
+            $facility_design .= " <div class='col-md-4'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h5>$facility->name</h5>
+                    </div>
+                    <div class='card-body'>
+                        <p>Zone: $zone->name</p>
+                        <p>Level: $facility->level</p>
+                    </div>
+                </div>
+            </div>";
+        }
+        $facility_design .="</div>";
+        return view('welcome',compact('facility_design'));
     }
 
     /**
@@ -77,6 +98,7 @@ class HealthFacilityController extends Controller
         $facility->name = $request->name;
         $facility->zone_id = $request->zone;
         $facility->user_id = $request->contact;
+        $facility->level = $request->level;
         $facility->description = $request->descr;
         $facility->save();
         return redirect()->route('facilities');

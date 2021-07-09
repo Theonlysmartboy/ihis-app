@@ -20,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+Route::get('/', [HealthFacilityController::class, 'listFacility'])->name('list.facilities');
 Route::group(['prefix' =>'admin'], function () {
     Route::get('/{facility}', [HealthFacilityController::class, 'dashboard'])->name('facility.dashboard');
     Route::get('/{facility}/patients', [PatientController::class, 'index'])->name('patients');

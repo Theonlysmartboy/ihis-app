@@ -18,6 +18,7 @@ class CreateHealthFacilitiesTable extends Migration
             $table->string('name');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('zone_id')->references('id')->on('zones')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('level');
             $table->text('description')->nullable();
             $table->timestamps();
         });
