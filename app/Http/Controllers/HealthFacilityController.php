@@ -44,13 +44,14 @@ class HealthFacilityController extends Controller
         }
         return view('facilities.index',compact('facility_design'));
     }
-
     public function listFacility(){
         $facilities = HealthFacility::get();
         $facility_design = "<div class='row'>";
         foreach ($facilities as $facility ){
             $zone = Zone::where(['id'=>$facility->zone_id])->first();
+            $url = route('facility.dashboard',$facility->name);
             $facility_design .= " <div class='col-md-4'>
+            <a href='$url'>
                 <div class='card'>
                     <div class='card-header'>
                         <h5>$facility->name</h5>
@@ -60,6 +61,7 @@ class HealthFacilityController extends Controller
                         <p>Level: $facility->level</p>
                     </div>
                 </div>
+                </a>
             </div>";
         }
         $facility_design .="</div>";
