@@ -16,10 +16,10 @@
                         <div class="col-md-4">
                             <a href="{{ route('patients',$facility_name) }}">
                                 <div class="card">
-                                    <div class="card-body bg-warning">
-                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    <div class="card-body bg-warning text-center">
+                                        <i class="fa fa-list" aria-hidden="true"></i>
                                     </div>
-                                    <div class="card-footer">
+                                    <div class="card-footer text-center">
                                         Patient List
                                     </div>
                                 </div>
@@ -28,10 +28,10 @@
                         <div class="col-md-4">
                             <a href="{{ route('patient.search',$facility_name) }}">
                                 <div class="card">
-                                    <div class="card-body bg-primary">
-                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    <div class="card-body bg-primary text-center">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
                                     </div>
-                                    <div class="card-footer">
+                                    <div class="card-footer text-center">
                                         Patient Search
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                             <a href="">
                                 <div class="card">
                                     <div class="card-body bg-success">
-                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                        <i class="fa fa-user" aria-hidden="true"></i>
                                     </div>
                                     <div class="card-footer">
                                         

@@ -16,10 +16,10 @@
                         <div class="col-md-4">
                             <a href="{{ route('zones') }}">
                                 <div class="card">
-                                    <div class="card-body bg-warning">
+                                    <div class="card-body bg-warning text-center">
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </div>
-                                    <div class="card-footer">
+                                    <div class="card-footer text-center">
                                         Zones
                                     </div>
                                 </div>
@@ -28,10 +28,10 @@
                         <div class="col-md-4">
                             <a href="{{ route('facilities') }}">
                                 <div class="card">
-                                    <div class="card-body bg-primary">
-                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    <div class="card-body bg-primary text-center">
+                                        <i class="fa fa-list" aria-hidden="true"></i>
                                     </div>
-                                    <div class="card-footer">
+                                    <div class="card-footer text-center">
                                         Health Facilities
                                     </div>
                                 </div>
@@ -40,10 +40,10 @@
                         <div class="col-md-4">
                             <a href="{{ route('admins') }}">
                                 <div class="card">
-                                    <div class="card-body bg-success">
-                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    <div class="card-body bg-success text-center">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
                                     </div>
-                                    <div class="card-footer">
+                                    <div class="card-footer text-center">
                                         Users
                                     </div>
                                 </div>
