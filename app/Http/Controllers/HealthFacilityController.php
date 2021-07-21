@@ -45,27 +45,133 @@ class HealthFacilityController extends Controller
         return view('facilities.index',compact('facility_design'));
     }
     public function listFacility(){
-        $facilities = HealthFacility::get();
-        $facility_design = "<div class='row'>";
-        foreach ($facilities as $facility ){
-            $zone = Zone::where(['id'=>$facility->zone_id])->first();
-            $url = route('facility.dashboard',$facility->name);
-            $facility_design .= " <div class='col-md-4'>
+        $refferal_facilities = HealthFacility::where(['level'=>'Refferal'])->get();
+        $refferal_facility_design = "<div class='row'>";
+        foreach ($refferal_facilities as $refferal_facility ){
+            $zone = Zone::where(['id'=>$refferal_facility->zone_id])->first();
+            $url = route('facility.dashboard',$refferal_facility->name);
+            $refferal_facility_design .= " <div class='col-md-4'>
             <a href='$url'>
                 <div class='card'>
                     <div class='card-header'>
-                        <h5>$facility->name</h5>
+                        <h5>$refferal_facility->name</h5>
                     </div>
                     <div class='card-body'>
                         <p>Zone: $zone->name</p>
-                        <p>Level: $facility->level</p>
+                        <p>Level: $refferal_facility->level</p>
                     </div>
                 </div>
                 </a>
             </div>";
         }
-        $facility_design .="</div>";
-        return view('welcome',compact('facility_design'));
+        $refferal_facility_design .="</div>";
+        //level5
+        $level5_facilities = HealthFacility::where(['level'=>'5'])->get();
+        $level5_facility_design = "<div class='row'>";
+        foreach ($level5_facilities as $level5_facility ){
+            $zone = Zone::where(['id'=>$level5_facility->zone_id])->first();
+            $url = route('facility.dashboard',$level5_facility->name);
+            $level5_facility_design .= " <div class='col-md-4'>
+            <a href='$url'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h5>$level5_facility->name</h5>
+                    </div>
+                    <div class='card-body'>
+                        <p>Zone: $zone->name</p>
+                        <p>Level: $level5_facility->level</p>
+                    </div>
+                </div>
+                </a>
+            </div>";
+        }
+        $level5_facility_design .="</div>";
+        //level4
+        $level4_facilities = HealthFacility::where(['level'=>'4'])->get();
+        $level4_facility_design = "<div class='row'>";
+        foreach ($level4_facilities as $level4_facility ){
+            $zone = Zone::where(['id'=>$level4_facility->zone_id])->first();
+            $url = route('facility.dashboard',$level4_facility->name);
+            $level4_facility_design .= " <div class='col-md-4'>
+            <a href='$url'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h5>$level4_facility->name</h5>
+                    </div>
+                    <div class='card-body'>
+                        <p>Zone: $zone->name</p>
+                        <p>Level: $level4_facility->level</p>
+                    </div>
+                </div>
+                </a>
+            </div>";
+        }
+        $level4_facility_design .="</div>";
+        //level3
+        $level3_facilities = HealthFacility::where(['level'=>'3'])->get();
+        $level3_facility_design = "<div class='row'>";
+        foreach ($level3_facilities as $level3_facility ){
+            $zone = Zone::where(['id'=>$level3_facility->zone_id])->first();
+            $url = route('facility.dashboard',$level3_facility->name);
+            $level3_facility_design .= " <div class='col-md-4'>
+            <a href='$url'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h5>$level3_facility->name</h5>
+                    </div>
+                    <div class='card-body'>
+                        <p>Zone: $zone->name</p>
+                        <p>Level: $level3_facility->level</p>
+                    </div>
+                </div>
+                </a>
+            </div>";
+        }
+        $level3_facility_design .="</div>";
+        //level2
+        $level2_facilities = HealthFacility::where(['level'=>'2'])->get();
+        $level2_facility_design = "<div class='row'>";
+        foreach ($level2_facilities as $level2_facility ){
+            $zone = Zone::where(['id'=>$level2_facility->zone_id])->first();
+            $url = route('facility.dashboard',$level2_facility->name);
+            $level2_facility_design .= " <div class='col-md-4'>
+            <a href='$url'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h5>$level2_facility->name</h5>
+                    </div>
+                    <div class='card-body'>
+                        <p>Zone: $zone->name</p>
+                        <p>Level: $level2_facility->level</p>
+                    </div>
+                </div>
+                </a>
+            </div>";
+        }
+        $level2_facility_design .="</div>";
+        //level1
+        $level1_facilities = HealthFacility::where(['level'=>'1'])->get();
+        $level1_facility_design = "<div class='row'>";
+        foreach ($level1_facilities as $level1_facility ){
+            $zone = Zone::where(['id'=>$level1_facility->zone_id])->first();
+            $url = route('facility.dashboard',$level1_facility->name);
+            $level1_facility_design .= " <div class='col-md-4'>
+            <a href='$url'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h5>$level1_facility->name</h5>
+                    </div>
+                    <div class='card-body'>
+                        <p>Zone: $zone->name</p>
+                        <p>Level: $level1_facility->level</p>
+                    </div>
+                </div>
+                </a>
+            </div>";
+        }
+        $level1_facility_design .="</div>";
+
+        return view('welcome',compact('refferal_facility_design','level5_facility_design','level4_facility_design','level3_facility_design','level2_facility_design','level1_facility_design'));
     }
 
     /**
