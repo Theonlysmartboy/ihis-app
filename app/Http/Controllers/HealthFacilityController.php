@@ -14,18 +14,28 @@ class HealthFacilityController extends Controller
      * Show the dashboard
      * for this particular hotel
      */
-    public function dashboard(){
+    public function dashboard(Request $request){
+        if(!Auth::check()){
+            return view('auth.login');
+        }
+        if ($request->user()->hasRole('admin')){
         $facility = HealthFacility::where(['user_id'=>Auth::user()->id])->first();
-        $facility_name = $facility->name;
-        return view('facilities.dashboard',compact('facility_name'));
+            $facility_name = $facility->name;
+            return view('facilities.dashboard',compact('facility_name'));
+        }else{
+            return redirect()->back();
+        }
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request){
+        if(!Auth::check()){
+        return view('auth.login');
+    }
+    if ($request->user()->hasRole('super_admin')){
         $facilities = HealthFacility::get();
         $facility_design = "";
         foreach ($facilities as $facility ){
@@ -43,28 +53,11 @@ class HealthFacilityController extends Controller
         </tr>";
         }
         return view('facilities.index',compact('facility_design'));
+    }else{
+        return redirect()->back();
+    }
     }
     public function listFacility(){
-        $refferal_facilities = HealthFacility::where(['level'=>'Refferal'])->get();
-        $refferal_facility_design = "<div class='row'>";
-        foreach ($refferal_facilities as $refferal_facility ){
-            $zone = Zone::where(['id'=>$refferal_facility->zone_id])->first();
-            $url = route('facility.dashboard',$refferal_facility->name);
-            $refferal_facility_design .= " <div class='col-md-4'>
-            <a href='$url'>
-                <div class='card'>
-                    <div class='card-header'>
-                        <h5>$refferal_facility->name</h5>
-                    </div>
-                    <div class='card-body'>
-                        <p>Zone: $zone->name</p>
-                        <p>Level: $refferal_facility->level</p>
-                    </div>
-                </div>
-                </a>
-            </div>";
-        }
-        $refferal_facility_design .="</div>";
         //level5
         $level5_facilities = HealthFacility::where(['level'=>'5'])->get();
         $level5_facility_design = "<div class='row'>";
@@ -79,7 +72,6 @@ class HealthFacilityController extends Controller
                     </div>
                     <div class='card-body'>
                         <p>Zone: $zone->name</p>
-                        <p>Level: $level5_facility->level</p>
                     </div>
                 </div>
                 </a>
@@ -100,7 +92,6 @@ class HealthFacilityController extends Controller
                     </div>
                     <div class='card-body'>
                         <p>Zone: $zone->name</p>
-                        <p>Level: $level4_facility->level</p>
                     </div>
                 </div>
                 </a>
@@ -121,7 +112,6 @@ class HealthFacilityController extends Controller
                     </div>
                     <div class='card-body'>
                         <p>Zone: $zone->name</p>
-                        <p>Level: $level3_facility->level</p>
                     </div>
                 </div>
                 </a>
@@ -142,7 +132,6 @@ class HealthFacilityController extends Controller
                     </div>
                     <div class='card-body'>
                         <p>Zone: $zone->name</p>
-                        <p>Level: $level2_facility->level</p>
                     </div>
                 </div>
                 </a>
@@ -163,7 +152,6 @@ class HealthFacilityController extends Controller
                     </div>
                     <div class='card-body'>
                         <p>Zone: $zone->name</p>
-                        <p>Level: $level1_facility->level</p>
                     </div>
                 </div>
                 </a>
@@ -171,7 +159,7 @@ class HealthFacilityController extends Controller
         }
         $level1_facility_design .="</div>";
 
-        return view('welcome',compact('refferal_facility_design','level5_facility_design','level4_facility_design','level3_facility_design','level2_facility_design','level1_facility_design'));
+        return view('welcome',compact('level5_facility_design','level4_facility_design','level3_facility_design','level2_facility_design','level1_facility_design'));
     }
 
     /**
@@ -179,8 +167,11 @@ class HealthFacilityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(Request $request)
+    {if(!Auth::check()){
+        return view('auth.login');
+    }
+    if ($request->user()->hasRole('super_admin')){
         $zone_dropdown= "<option selected>Select Zone</option>";
             $zones= Zone::get();
             foreach($zones as $zone){
@@ -192,6 +183,9 @@ class HealthFacilityController extends Controller
                 $user_dropdown .= "<option class='bg-ready' value='".$user->id."'>". $user->name."</option>";
             }
         return view('facilities.new',compact('zone_dropdown', 'user_dropdown'));
+    }else{
+        return redirect()->back();
+    }
     }
 
     /**
@@ -202,6 +196,10 @@ class HealthFacilityController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::check()){
+            return view('auth.login');
+        }
+        if ($request->user()->hasRole('super_admin')){
         $facility = new HealthFacility();
         $facility->name = $request->name;
         $facility->zone_id = $request->zone;
@@ -210,6 +208,9 @@ class HealthFacilityController extends Controller
         $facility->description = $request->descr;
         $facility->save();
         return redirect()->route('facilities');
+    }else{
+        return redirect()->back();
+    }
     }
 
     /**
